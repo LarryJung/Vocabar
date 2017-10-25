@@ -3,6 +3,10 @@ package com.dot2line.vocabar.ui;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.dot2line.vocabar.R;
 import com.dot2line.vocabar.adapter.BookAdapter;
@@ -27,8 +31,9 @@ public class MainActivity extends BaseMVPActivity<MainView, MainPresenter> imple
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
+    Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
+    setSupportActionBar(myToolbar);
     ButterKnife.bind(this);
-
 
     ArrayList<BookModel> bookList = new ArrayList();
     bookList.add(new BookModel());
@@ -43,6 +48,23 @@ public class MainActivity extends BaseMVPActivity<MainView, MainPresenter> imple
 
     bookRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
     bookRecyclerView.setAdapter(adapter);
+  }
+
+  @Override
+  public boolean onCreateOptionsMenu(Menu menu) {
+    getMenuInflater().inflate(R.menu.main, menu);
+    return super.onCreateOptionsMenu(menu);
+  }
+
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
+    switch (item.getItemId()) {
+      case R.id.action_add:
+        Toast.makeText(getApplicationContext(), "asdf", Toast.LENGTH_LONG).show();
+        return true;
+      default:
+        return super.onOptionsItemSelected(item);
+    }
   }
 
   @Override
