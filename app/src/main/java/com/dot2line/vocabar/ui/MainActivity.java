@@ -4,12 +4,15 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.Button;
 
 import com.dot2line.vocabar.R;
 import com.dot2line.vocabar.adapter.BookAdapter;
 import com.dot2line.vocabar.base.BaseMVPActivity;
 import com.dot2line.vocabar.model.BookModel;
 import com.dot2line.vocabar.presenter.MainPresenter;
+import com.dot2line.vocabar.util.NaviUtil;
 import com.dot2line.vocabar.view.MainView;
 
 import java.util.ArrayList;
@@ -21,6 +24,9 @@ public class MainActivity extends BaseMVPActivity<MainView, MainPresenter> imple
 
   @BindView(R.id.recycler_view)
   RecyclerView bookRecyclerView;
+
+  @BindView(R.id.test_button)
+  Button testBtn;
 
   BookAdapter adapter;
 
@@ -42,6 +48,13 @@ public class MainActivity extends BaseMVPActivity<MainView, MainPresenter> imple
 
     bookRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
     bookRecyclerView.setAdapter(adapter);
+
+    testBtn.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        NaviUtil.startMainService(getApplicationContext());
+      }
+    });
   }
 
   @Override
