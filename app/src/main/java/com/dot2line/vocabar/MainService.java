@@ -30,7 +30,6 @@ public class MainService extends Service {
   @Override
   public void onCreate() {
     super.onCreate();
-
   }
 
   @Override
@@ -74,8 +73,11 @@ public class MainService extends Service {
   }
 
   private void initWmParams() {
-    wmParams = new WindowManager.LayoutParams(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT,
-        WindowManager.LayoutParams.TYPE_PHONE, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, PixelFormat.TRANSLUCENT);
+    wmParams = new WindowManager.LayoutParams(WindowManager.LayoutParams.MATCH_PARENT,
+        WindowManager.LayoutParams.WRAP_CONTENT,
+        WindowManager.LayoutParams.TYPE_PHONE,
+        WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
+        PixelFormat.TRANSLUCENT);
     wmParams.gravity = Gravity.TOP | Gravity.LEFT;
   }
 
