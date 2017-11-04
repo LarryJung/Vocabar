@@ -16,6 +16,11 @@ public class NaviUtil {
     context.startService(intent);
   }
 
+  public static void stopMainService(Context context) {
+    Intent intent = new Intent(context, MainService.class);
+    context.stopService(intent);
+  }
+
   public static void startOverlayWindowService(AppCompatActivity appCompatActivity, int requestCode) {
     Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
         Uri.parse("package:" + appCompatActivity.getApplicationContext().getPackageName()));

@@ -2,6 +2,7 @@
 <resources>
     <dimen name="margin_normal">16dp</dimen>
     <dimen name="margin_small">8dp</dimen>
+    <dimen name="margin_micro">4dp</dimen>
     <dimen name="item_title">24dp</dimen>
     <dimen name="item_sub">12dp</dimen>
 

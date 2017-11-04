@@ -46,8 +46,8 @@ class SplashActivity : AppCompatActivity() {
           NaviUtil.moveToMainActivity(this)
         } else {
           Toast.makeText(this, R.string.should_overlay_permission, Toast.LENGTH_LONG).show()
-          finish()
         }
+        finish()
       }
     }
   }

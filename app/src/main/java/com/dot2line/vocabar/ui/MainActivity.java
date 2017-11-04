@@ -26,7 +26,10 @@ public class MainActivity extends BaseMVPActivity<MainView, MainPresenter> imple
   RecyclerView bookRecyclerView;
 
   @BindView(R.id.test_button)
-  Button testBtn;
+  Button startBtn;
+
+  @BindView(R.id.test_button_2)
+  Button stopBtn;
 
   BookAdapter adapter;
 
@@ -49,10 +52,17 @@ public class MainActivity extends BaseMVPActivity<MainView, MainPresenter> imple
     bookRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
     bookRecyclerView.setAdapter(adapter);
 
-    testBtn.setOnClickListener(new View.OnClickListener() {
+    startBtn.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
         NaviUtil.startMainService(getApplicationContext());
+      }
+    });
+
+    stopBtn.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        NaviUtil.stopMainService(getApplicationContext());
       }
     });
   }
