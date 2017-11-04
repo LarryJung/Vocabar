@@ -34,6 +34,7 @@ public class MainService extends Service {
 
   @Override
   public int onStartCommand(Intent intent, int flags, int startId) {
+    finishInflate();
     startInflate();
 
     return super.onStartCommand(intent, flags, startId);
