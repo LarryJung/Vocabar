@@ -16,7 +16,6 @@ class SplashActivity : AppCompatActivity() {
   private val SPLASH_TIME = 1000L
   private val REQ_OVERLAY_PERMISSION = 1203
 
-
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
 
@@ -55,7 +54,7 @@ class SplashActivity : AppCompatActivity() {
   private fun next() {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
         && !Settings.canDrawOverlays(this)) {
-        NaviUtil.startOverlayWindowService(this, REQ_OVERLAY_PERMISSION)
+        NaviUtil.startOverlayPermissionActivityForResult(this, REQ_OVERLAY_PERMISSION)
     } else {
       NaviUtil.moveToMainActivity(this)
       finish()

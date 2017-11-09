@@ -55,14 +55,14 @@ public class MainActivity extends BaseMVPActivity<MainView, MainPresenter> imple
     startBtn.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        NaviUtil.startMainService(getApplicationContext());
+        NaviUtil.INSTANCE.startMainService(getApplicationContext());
       }
     });
 
     stopBtn.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        NaviUtil.stopMainService(getApplicationContext());
+        NaviUtil.INSTANCE.stopMainService(getApplicationContext());
       }
     });
   }
