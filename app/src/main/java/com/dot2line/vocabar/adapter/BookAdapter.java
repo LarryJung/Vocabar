@@ -1,5 +1,6 @@
 package com.dot2line.vocabar.adapter;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,24 +8,35 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.dot2line.vocabar.R;
-import com.dot2line.vocabar.model.BookModel;
+import com.dot2line.vocabar.model.VocaBook;
 
 import java.util.ArrayList;
 
 public class BookAdapter extends RecyclerView.Adapter {
+  private static final String TAG = BookAdapter.class.getSimpleName();
 
   private final static int EMPTY_VIEW = 0;
   private final static int NORMAL_VIEW = 1;
 
-  private ArrayList<BookModel> bookList;
+  private ArrayList<VocaBook> bookList;
+  private Context context;
 
-  public BookAdapter(ArrayList<BookModel> bookList) {
-    this.bookList = bookList;
+  OnClickEmptyViewListner listener;
+
+  public BookAdapter(Context context, OnClickEmptyViewListner listener) {
+    this.listener = listener;
+    this.context = context;
+    this.bookList = new ArrayList<>();
+  }
+
+  public void addBook(VocaBook book) {
+    this.bookList.add(book);
+    notifyDataSetChanged();
   }
 
   @Override
   public int getItemViewType(int position) {
-    if (bookList.get(position).isEmpty()) {
+    if (position == bookList.size()) {
       return EMPTY_VIEW;
     } else {
       return NORMAL_VIEW;
@@ -37,13 +49,12 @@ public class BookAdapter extends RecyclerView.Adapter {
     switch (viewType) {
       case EMPTY_VIEW:
         v = LayoutInflater.from(parent.getContext()).inflate(R.layout.book_empty_itemview, parent, false);
-        break;
+        return new EmptyViewHolder(v);
       case NORMAL_VIEW:
       default:
         v = LayoutInflater.from(parent.getContext()).inflate(R.layout.book_itemview, parent, false);
+        return new BookViewHolder(v);
     }
-
-    return new BookViewHolder(v);
   }
 
   @Override
@@ -51,6 +62,14 @@ public class BookAdapter extends RecyclerView.Adapter {
     switch (getItemViewType(position)) {
       case EMPTY_VIEW:
       default:
+        if (holder instanceof EmptyViewHolder) {
+          ((EmptyViewHolder) holder).root.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+              listener.onClickEmptyView(v);
+            }
+          });
+        }
         break;
       case NORMAL_VIEW:
         if (holder instanceof BookViewHolder) {
@@ -60,13 +79,9 @@ public class BookAdapter extends RecyclerView.Adapter {
     }
   }
 
-  public void setBookList(ArrayList<BookModel> bookList) {
-    this.bookList.addAll(bookList);
-  }
-
   @Override
   public int getItemCount() {
-    return bookList.size();
+    return bookList == null ? 0 : bookList.size() + 1;
   }
 
   class BookViewHolder extends RecyclerView.ViewHolder {
@@ -78,8 +93,14 @@ public class BookAdapter extends RecyclerView.Adapter {
   }
 
   class EmptyViewHolder extends RecyclerView.ViewHolder {
+    View root;
     public EmptyViewHolder(View itemView) {
       super(itemView);
+      root = itemView;
     }
+  }
+
+  public interface OnClickEmptyViewListner {
+    void onClickEmptyView(View v);
   }
 }
