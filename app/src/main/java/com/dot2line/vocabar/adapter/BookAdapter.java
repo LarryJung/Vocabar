@@ -34,6 +34,10 @@ public class BookAdapter extends RecyclerView.Adapter {
     notifyDataSetChanged();
   }
 
+  public void clear() {
+    this.bookList.clear();
+  }
+
   @Override
   public int getItemViewType(int position) {
     if (position == bookList.size()) {
@@ -58,7 +62,7 @@ public class BookAdapter extends RecyclerView.Adapter {
   }
 
   @Override
-  public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+  public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
     switch (getItemViewType(position)) {
       case EMPTY_VIEW:
       default:
@@ -73,6 +77,13 @@ public class BookAdapter extends RecyclerView.Adapter {
         break;
       case NORMAL_VIEW:
         if (holder instanceof BookViewHolder) {
+          ((BookViewHolder) holder).root.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+              VocaBook book = bookList.get(position);
+              listener.onClickBookItemView(book);
+            }
+          });
           ((BookViewHolder) holder).bookName.setText(bookList.get(position).getBookName());
         }
         break;
@@ -85,9 +96,11 @@ public class BookAdapter extends RecyclerView.Adapter {
   }
 
   class BookViewHolder extends RecyclerView.ViewHolder {
+    View root;
     TextView bookName;
     public BookViewHolder(View itemView) {
       super(itemView);
+      root = itemView;
       bookName = (TextView) itemView.findViewById(R.id.txt_book_name);
     }
   }
@@ -102,5 +115,6 @@ public class BookAdapter extends RecyclerView.Adapter {
 
   public interface OnClickEmptyViewListner {
     void onClickEmptyView(View v);
+    void onClickBookItemView(VocaBook book);
   }
 }

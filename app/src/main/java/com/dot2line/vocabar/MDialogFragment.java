@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -12,7 +13,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 
-public class DialogFragment extends android.support.v4.app.DialogFragment {
+public class MDialogFragment extends DialogFragment {
+  public static final String TAG = MDialogFragment.class.getSimpleName();
 
     VCBDialogListener listener;
 
@@ -21,10 +23,10 @@ public class DialogFragment extends android.support.v4.app.DialogFragment {
     EditText edtBookDesc;
 
     public interface VCBDialogListener {
-        void onDialogPositiveClick(android.support.v4.app.DialogFragment dfragment, String bookName, String bookDesc);
+        void onDialogPositiveClick(DialogFragment fragment, String bookName, String bookDesc);
     }
 
-    public DialogFragment() {
+    public MDialogFragment() {
 
     }
 
@@ -65,7 +67,7 @@ public class DialogFragment extends android.support.v4.app.DialogFragment {
                 .setPositiveButton("추가", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        listener.onDialogPositiveClick(DialogFragment.this, edtBookName.getText().toString(), edtBookDesc.getText().toString());
+                        listener.onDialogPositiveClick(MDialogFragment.this, edtBookName.getText().toString(), edtBookDesc.getText().toString());
                     }
                 })
                 .setNegativeButton("취소", new DialogInterface.OnClickListener() {

@@ -40,12 +40,15 @@ dependencies {
     compile 'com.jakewharton:butterknife:8.8.1'
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     compile 'com.facebook.shimmer:shimmer:0.1.0@aar'
+    compile 'com.droidninja:filepicker:2.1.1'
+    compile 'io.reactivex:rxjava-string:1.1.1'
 
     kapt 'com.jakewharton:butterknife-compiler:8.8.1'
 }
 
 repositories {
     mavenCentral()
+    jcenter()
 }
 
 realm {
