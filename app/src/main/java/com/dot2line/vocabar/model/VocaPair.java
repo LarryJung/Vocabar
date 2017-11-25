@@ -1,11 +1,9 @@
 package com.dot2line.vocabar.model;
 
 import io.realm.RealmObject;
-import io.realm.annotations.PrimaryKey;
 
-public class VocaPair extends RealmObject{
+public class VocaPair extends RealmObject {
 
-  @PrimaryKey
   private long id;
   private String origin;
   private String meaning;

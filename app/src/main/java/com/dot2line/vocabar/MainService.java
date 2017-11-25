@@ -58,7 +58,7 @@ public class MainService extends Service {
     LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     loBar = inflater.inflate(R.layout.layout_vocabar, null);
     loBar.setOnTouchListener(onBarTouchListener);
-    txtVoca = (TextView) loBar.findViewById(R.id.txt_voca);
+    txtVoca = loBar.findViewById(R.id.txt_voca);
 
     initWmParams();
 

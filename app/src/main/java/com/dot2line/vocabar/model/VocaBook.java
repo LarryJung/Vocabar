@@ -3,11 +3,13 @@ package com.dot2line.vocabar.model;
 import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
+import io.realm.annotations.Required;
 
 public class VocaBook extends RealmObject {
 
   @PrimaryKey
-  private long id;
+  @Required
+  private String id;
   private String bookName;
   private String bookDesc;
   private RealmList<VocaPair> vocaPairList;
@@ -15,18 +17,18 @@ public class VocaBook extends RealmObject {
   public VocaBook() {
   }
 
-  public VocaBook(long id, String bookName, String bookDesc, RealmList<VocaPair> vocaPairList) {
+  public VocaBook(String id, String bookName, String bookDesc, RealmList<VocaPair> vocaPairList) {
     this.id = id;
     this.bookName = bookName;
     this.bookDesc = bookDesc;
     this.vocaPairList = vocaPairList;
   }
 
-  public long getId() {
+  public String getId() {
     return id;
   }
 
-  public void setId(long id) {
+  public void setId(String id) {
     this.id = id;
   }
 

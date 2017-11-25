@@ -11,6 +11,7 @@ import com.dot2line.vocabar.util.DBUtil;
 import com.dot2line.vocabar.view.MainView;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
@@ -20,8 +21,8 @@ import io.realm.RealmResults;
 public class MainPresenter extends BaseMVPPresenter<MainView> {
   private static final String TAG = MainPresenter.class.getSimpleName();
 
-  BookAdapter adapter;
-  Realm realm;
+  private BookAdapter adapter;
+  private Realm realm;
 
   public MainPresenter(Realm realm, BookAdapter adapter) {
     this.realm = realm;
@@ -47,7 +48,7 @@ public class MainPresenter extends BaseMVPPresenter<MainView> {
 
   public void addVocaBook(String name, String desc, String path) {
     realm.beginTransaction();
-    VocaBook newVocaBook = realm.createObject(VocaBook.class, name.hashCode());
+    VocaBook newVocaBook = realm.createObject(VocaBook.class, UUID.randomUUID().toString());
     newVocaBook.setBookName(name);
     newVocaBook.setBookDesc(!TextUtils.isEmpty(desc) ? desc : "");
     newVocaBook.setVocaPairList(getPairListFromCSVFile(path));
@@ -61,9 +62,10 @@ public class MainPresenter extends BaseMVPPresenter<MainView> {
     ArrayList<String[]> lines = CSVReader.read(path);
 
     for (int i = 0; i < lines.size(); i++) {
-      VocaPair pair = realm.createObject(VocaPair.class, i);
+      VocaPair pair = realm.createObject(VocaPair.class);
+      pair.setId(i);
       pair.setOrigin(lines.get(i)[0]);
-      pair.setMeaning(lines.get(i)[1]);
+      pair.setMeaning(lines.get(i)[1].trim());
       vocaPairs.add(pair);
     }
     return vocaPairs;

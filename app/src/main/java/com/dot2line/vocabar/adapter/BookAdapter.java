@@ -101,7 +101,7 @@ public class BookAdapter extends RecyclerView.Adapter {
     public BookViewHolder(View itemView) {
       super(itemView);
       root = itemView;
-      bookName = (TextView) itemView.findViewById(R.id.txt_book_name);
+      bookName = itemView.findViewById(R.id.txt_book_name);
     }
   }
 

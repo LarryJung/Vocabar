@@ -18,6 +18,7 @@ import com.dot2line.vocabar.base.BaseMVPActivity;
 import com.dot2line.vocabar.model.VocaBook;
 import com.dot2line.vocabar.model.VocaPair;
 import com.dot2line.vocabar.presenter.MainPresenter;
+import com.dot2line.vocabar.util.DBUtil;
 import com.dot2line.vocabar.util.NaviUtil;
 import com.dot2line.vocabar.view.MainView;
 
@@ -33,7 +34,7 @@ public class MainActivity extends BaseMVPActivity<MainView, MainPresenter>
     implements MainView, BookAdapter.OnClickEmptyViewListner, MDialogFragment.VCBDialogListener {
   private static final String TAG = MainActivity.class.getSimpleName();
   private static final String CSV_FILES = "CSV_FILES";
-  private static final String CSV_FORMAT = ".csv";
+  private static final String[] CSV_FORMAT = {".csv"};
 
   @BindView(R.id.recycler_view)
   RecyclerView bookRecyclerView;
@@ -128,15 +129,18 @@ public class MainActivity extends BaseMVPActivity<MainView, MainPresenter>
         , output
         , Toast.LENGTH_LONG).show();
 
+    Intent i = new Intent(this, DetailActivity.class) ;
+    i.putExtra(DBUtil.BOOK_ID, book.getId());
+    startActivity(i);
   }
 
   @Override
   public void onClickEmptyView(View v) {
-    String[] format = {CSV_FORMAT};
+
     FilePickerBuilder.getInstance().setMaxCount(1)
         .setActivityTheme(R.style.AppTheme)
         .enableDocSupport(false)
-        .addFileSupport(CSV_FILES, format, R.drawable.ic_csv_file)
+        .addFileSupport(CSV_FILES, CSV_FORMAT, R.drawable.ic_csv_file)
         .pickFile(this);
   }
 
