@@ -20,10 +20,9 @@ public class MDialogFragment extends DialogFragment {
 
     AlertDialog dialog;
     EditText edtBookName;
-    EditText edtBookDesc;
 
     public interface VCBDialogListener {
-        void onDialogPositiveClick(DialogFragment fragment, String bookName, String bookDesc);
+        void onDialogPositiveClick(DialogFragment fragment, String bookName);
     }
 
     public MDialogFragment() {
@@ -46,7 +45,6 @@ public class MDialogFragment extends DialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.dialog_add_vocabook, null);
         edtBookName = (EditText) view.findViewById(R.id.edt_book_name);
-        edtBookDesc = (EditText) view.findViewById(R.id.edt_book_desc);
         edtBookName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -67,7 +65,7 @@ public class MDialogFragment extends DialogFragment {
                 .setPositiveButton("추가", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        listener.onDialogPositiveClick(MDialogFragment.this, edtBookName.getText().toString(), edtBookDesc.getText().toString());
+                        listener.onDialogPositiveClick(MDialogFragment.this, edtBookName.getText().toString());
                     }
                 })
                 .setNegativeButton("취소", new DialogInterface.OnClickListener() {

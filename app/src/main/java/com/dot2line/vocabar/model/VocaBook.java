@@ -11,16 +11,14 @@ public class VocaBook extends RealmObject {
   @Required
   private String id;
   private String bookName;
-  private String bookDesc;
   private RealmList<VocaPair> vocaPairList;
 
   public VocaBook() {
   }
 
-  public VocaBook(String id, String bookName, String bookDesc, RealmList<VocaPair> vocaPairList) {
+  public VocaBook(String id, String bookName, RealmList<VocaPair> vocaPairList) {
     this.id = id;
     this.bookName = bookName;
-    this.bookDesc = bookDesc;
     this.vocaPairList = vocaPairList;
   }
 
@@ -38,14 +36,6 @@ public class VocaBook extends RealmObject {
 
   public void setBookName(String bookName) {
     this.bookName = bookName;
-  }
-
-  public String getBookDesc() {
-    return bookDesc;
-  }
-
-  public void setBookDesc(String bookDesc) {
-    this.bookDesc = bookDesc;
   }
 
   public RealmList<VocaPair> getVocaPairList() {

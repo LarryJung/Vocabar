@@ -1,7 +1,5 @@
 package com.dot2line.vocabar.presenter;
 
-import android.text.TextUtils;
-
 import com.dot2line.vocabar.adapter.BookAdapter;
 import com.dot2line.vocabar.base.BaseMVPPresenter;
 import com.dot2line.vocabar.model.VocaBook;
@@ -46,11 +44,10 @@ public class MainPresenter extends BaseMVPPresenter<MainView> {
 
   }
 
-  public void addVocaBook(String name, String desc, String path) {
+  public void addVocaBook(String name, String path) {
     realm.beginTransaction();
     VocaBook newVocaBook = realm.createObject(VocaBook.class, UUID.randomUUID().toString());
     newVocaBook.setBookName(name);
-    newVocaBook.setBookDesc(!TextUtils.isEmpty(desc) ? desc : "");
     newVocaBook.setVocaPairList(getPairListFromCSVFile(path));
     adapter.addBook(newVocaBook);
     realm.commitTransaction();

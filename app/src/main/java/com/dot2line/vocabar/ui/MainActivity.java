@@ -145,8 +145,8 @@ public class MainActivity extends BaseMVPActivity<MainView, MainPresenter>
   }
 
   @Override
-  public void onDialogPositiveClick(DialogFragment fragment, String bookName, String bookDesc) {
-    basePresenter.addVocaBook(bookName, bookDesc, tempFilesPath);
+  public void onDialogPositiveClick(DialogFragment fragment, String bookName) {
+    basePresenter.addVocaBook(bookName, tempFilesPath);
   }
 
   private void showMakeBookDialog() {
