@@ -25,7 +25,7 @@ class SplashActivity : AppCompatActivity() {
   }
 
   private fun startShimmer() {
-    val shimmer: ShimmerFrameLayout = findViewById(R.id.shimmer) as ShimmerFrameLayout
+    val shimmer: ShimmerFrameLayout = findViewById(R.id.shimmer)
     shimmer.angle = ShimmerFrameLayout.MaskAngle.CW_0
     shimmer.startShimmerAnimation()
 

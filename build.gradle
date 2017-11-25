@@ -1,16 +1,21 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
+    ext.build_gradle_version = '3.0.1'
     ext.kotlin_version = '1.1.51'
     ext.realm_version = '4.1.1'
+    ext.file_picker_version = '2.1.1'
+    ext.rxjava_string_version = '1.1.1'
+    ext.butter_knife_version = '8.8.1'
 
     repositories {
         jcenter()
         mavenCentral()
+        google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.3'
-        classpath 'com.jakewharton:butterknife-gradle-plugin:8.8.1'
+        classpath "com.android.tools.build:gradle:$build_gradle_version"
+        classpath "com.jakewharton:butterknife-gradle-plugin:$butter_knife_version"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "io.realm:realm-gradle-plugin:$realm_version"
     }
@@ -19,6 +24,7 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
+        google()
     }
 }
 
