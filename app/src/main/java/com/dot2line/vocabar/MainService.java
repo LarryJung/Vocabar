@@ -12,6 +12,15 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+import com.dot2line.vocabar.model.VocaBook;
+import com.dot2line.vocabar.model.VocaPair;
+import com.dot2line.vocabar.util.DBUtil;
+
+import java.util.ArrayList;
+
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
+
 public class MainService extends Service {
 
   private TextView txtVoca;
@@ -25,16 +34,28 @@ public class MainService extends Service {
   private float touchX, touchY;
   private int viewX, viewY;
 
+  Realm realm;
+  VocaBook book;
+  ArrayList<String> vocaList;
+  String bookId;
   int index;
 
   @Override
   public void onCreate() {
     super.onCreate();
+
+    realm.init(this);
+    RealmConfiguration realmConfiguration = new RealmConfiguration.Builder().build();
+    realm.setDefaultConfiguration(realmConfiguration);
   }
 
   @Override
   public int onStartCommand(Intent intent, int flags, int startId) {
     finishInflate();
+
+    if (intent != null) {
+      bookId = intent.getStringExtra(DBUtil.BOOK_ID);
+    }
     startInflate();
 
     return super.onStartCommand(intent, flags, startId);
@@ -44,6 +65,9 @@ public class MainService extends Service {
   public void onDestroy() {
     super.onDestroy();
 
+    if (realm != null) {
+      realm.close();
+    }
     finishInflate();
   }
 
@@ -64,6 +88,18 @@ public class MainService extends Service {
 
     wm = (WindowManager) getSystemService(WINDOW_SERVICE);
     wm.addView(loBar, wmParams);
+
+    realm = Realm.getDefaultInstance();
+    vocaList = new ArrayList<>();
+    book = realm.where(VocaBook.class).equalTo("id", bookId).findFirst();
+    if (book != null && book.getVocaPairList().size() > 0) {
+      for (VocaPair pair : book.getVocaPairList()) {
+        vocaList.add(pair.getOrigin());
+        vocaList.add(pair.getMeaning());
+      }
+      index = 0;
+      changeWord();
+    }
   }
 
   private void finishInflate() {
@@ -97,10 +133,10 @@ public class MainService extends Service {
            case MotionEvent.ACTION_UP:
              if (!isMove) {
                // TEST_CODE (Tab)
-               // if (index == vocaList.size()) {
-               //   index = 0;
-               // }
-               // changeWord();
+               if (index == vocaList.size()) {
+                 index = 0;
+               }
+               changeWord();
                index++;
              }
              break;
@@ -126,5 +162,10 @@ public class MainService extends Service {
          return true;
        }
     };
+  }
+
+  private void changeWord() {
+    if (index == vocaList.size()) index = 0;
+    txtVoca.setText(vocaList.get(index));
   }
 }

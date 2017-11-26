@@ -9,14 +9,12 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.dot2line.vocabar.MDialogFragment;
 import com.dot2line.vocabar.R;
 import com.dot2line.vocabar.adapter.BookAdapter;
 import com.dot2line.vocabar.base.BaseMVPActivity;
 import com.dot2line.vocabar.model.VocaBook;
-import com.dot2line.vocabar.model.VocaPair;
 import com.dot2line.vocabar.presenter.MainPresenter;
 import com.dot2line.vocabar.util.DBUtil;
 import com.dot2line.vocabar.util.NaviUtil;
@@ -38,8 +36,6 @@ public class MainActivity extends BaseMVPActivity<MainView, MainPresenter>
 
   @BindView(R.id.recycler_view)
   RecyclerView bookRecyclerView;
-  @BindView(R.id.test_button)
-  Button startBtn;
   @BindView(R.id.test_button_2)
   Button stopBtn;
   @BindView(R.id.toolbar)
@@ -63,14 +59,6 @@ public class MainActivity extends BaseMVPActivity<MainView, MainPresenter>
 
     bookRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
     bookRecyclerView.setAdapter(adapter);
-
-    // TODO : To Remove
-    startBtn.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        NaviUtil.INSTANCE.startMainService(getApplicationContext());
-      }
-    });
 
     stopBtn.setOnClickListener(new View.OnClickListener() {
       @Override
@@ -119,16 +107,6 @@ public class MainActivity extends BaseMVPActivity<MainView, MainPresenter>
 
   @Override
   public void onClickBookItemView(VocaBook book) {
-    String output = "";
-    for (VocaPair pair : book.getVocaPairList()) {
-      output += pair.getOrigin() + " -> " + pair.getMeaning() + "\n";
-    }
-
-    // TEST CODE
-    Toast.makeText(getApplicationContext()
-        , output
-        , Toast.LENGTH_LONG).show();
-
     Intent i = new Intent(this, DetailActivity.class) ;
     i.putExtra(DBUtil.BOOK_ID, book.getId());
     startActivity(i);

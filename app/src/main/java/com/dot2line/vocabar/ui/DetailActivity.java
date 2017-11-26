@@ -1,12 +1,16 @@
 package com.dot2line.vocabar.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
+import com.dot2line.vocabar.MainService;
 import com.dot2line.vocabar.R;
 import com.dot2line.vocabar.adapter.PairAdapter;
 import com.dot2line.vocabar.base.BaseMVPActivity;
@@ -28,6 +32,8 @@ public class DetailActivity extends BaseMVPActivity<DetailView, DetailPresenter>
   Toolbar toolbar;
   @BindView(R.id.recycler_view)
   RecyclerView recyclerView;
+  @BindView(R.id.btn_start)
+  Button startBtn;
 
   Realm realm;
   PairAdapter adapter;
@@ -47,6 +53,15 @@ public class DetailActivity extends BaseMVPActivity<DetailView, DetailPresenter>
     adapter = new PairAdapter();
     recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
     recyclerView.setAdapter(adapter);
+
+    startBtn.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        Intent intent = new Intent(getApplicationContext(), MainService.class);
+        intent.putExtra(DBUtil.BOOK_ID, bookId);
+        startService(intent);
+      }
+    });
   }
 
   @Override
