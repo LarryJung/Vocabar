@@ -114,9 +114,9 @@ public class MainActivity extends BaseMVPActivity<MainView, MainPresenter>
 
   @Override
   public void onClickEmptyView(View v) {
-
-    FilePickerBuilder.getInstance().setMaxCount(1)
-        .setActivityTheme(R.style.AppTheme)
+    FilePickerBuilder.getInstance()
+        .setMaxCount(1)
+        .setActivityTheme(R.style.Theme_AppCompat_Light_NoActionBar)
         .enableDocSupport(false)
         .addFileSupport(CSV_FILES, CSV_FORMAT, R.drawable.ic_csv_file)
         .pickFile(this);
