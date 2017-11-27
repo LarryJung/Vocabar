@@ -1,9 +1,14 @@
 package com.dot2line.vocabar.ui;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -33,6 +38,8 @@ public class MainActivity extends BaseMVPActivity<MainView, MainPresenter>
   private static final String TAG = MainActivity.class.getSimpleName();
   private static final String CSV_FILES = "CSV_FILES";
   private static final String[] CSV_FORMAT = {".csv"};
+
+  private static final int REQ_CODE_READ_EXTERNAL_STORAGE_PERMISSION = 1234;
 
   @BindView(R.id.recycler_view)
   RecyclerView bookRecyclerView;
@@ -106,6 +113,19 @@ public class MainActivity extends BaseMVPActivity<MainView, MainPresenter>
   }
 
   @Override
+  public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    switch (requestCode) {
+      case REQ_CODE_READ_EXTERNAL_STORAGE_PERMISSION:
+        if (grantResults.length > 0
+            && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+          moveToFilePicker();
+        }
+        break;
+    }
+  }
+
+  @Override
   public void onClickBookItemView(VocaBook book) {
     Intent i = new Intent(this, DetailActivity.class) ;
     i.putExtra(DBUtil.BOOK_ID, book.getId());
@@ -114,12 +134,14 @@ public class MainActivity extends BaseMVPActivity<MainView, MainPresenter>
 
   @Override
   public void onClickEmptyView(View v) {
-    FilePickerBuilder.getInstance()
-        .setMaxCount(1)
-        .setActivityTheme(R.style.Theme_AppCompat_Light_NoActionBar)
-        .enableDocSupport(false)
-        .addFileSupport(CSV_FILES, CSV_FORMAT, R.drawable.ic_csv_file)
-        .pickFile(this);
+    if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)
+        == PackageManager.PERMISSION_GRANTED) {
+      moveToFilePicker();
+    } else {
+      ActivityCompat.requestPermissions(MainActivity.this,
+          new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+          REQ_CODE_READ_EXTERNAL_STORAGE_PERMISSION);
+    }
   }
 
   @Override
@@ -132,4 +154,12 @@ public class MainActivity extends BaseMVPActivity<MainView, MainPresenter>
     dialog.show(getSupportFragmentManager(), MDialogFragment.TAG);
   }
 
+  private void moveToFilePicker() {
+    FilePickerBuilder.getInstance()
+        .setMaxCount(1)
+        .setActivityTheme(R.style.Theme_AppCompat_Light_NoActionBar)
+        .enableDocSupport(false)
+        .addFileSupport(CSV_FILES, CSV_FORMAT, R.drawable.ic_csv_file)
+        .pickFile(this);
+  }
 }
