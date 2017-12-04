@@ -3,6 +3,7 @@
 
     <string name="my_books">My Books</string>
     <string name="add">add</string>
+    <string name="cancel">cancel</string>
     <string name="should_overlay_permission">Permission is required to use Vocabar.</string>
     <string name="book_name">Book Name</string>
     <string name="book_desc">Book Description</string>

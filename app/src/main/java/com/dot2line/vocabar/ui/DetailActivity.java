@@ -7,7 +7,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 
 import com.dot2line.vocabar.MainService;
@@ -54,13 +53,10 @@ public class DetailActivity extends BaseMVPActivity<DetailView, DetailPresenter>
     recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
     recyclerView.setAdapter(adapter);
 
-    startBtn.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View view) {
-        Intent intent = new Intent(getApplicationContext(), MainService.class);
-        intent.putExtra(DBUtil.BOOK_ID, bookId);
-        startService(intent);
-      }
+    startBtn.setOnClickListener(view -> {
+      Intent intent = new Intent(getApplicationContext(), MainService.class);
+      intent.putExtra(DBUtil.BOOK_ID, bookId);
+      startService(intent);
     });
   }
 

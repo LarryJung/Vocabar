@@ -2,7 +2,6 @@ package com.dot2line.vocabar;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
@@ -44,7 +43,7 @@ public class MDialogFragment extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.dialog_add_vocabook, null);
-        edtBookName = (EditText) view.findViewById(R.id.edt_book_name);
+        edtBookName = view.findViewById(R.id.edt_book_name);
         edtBookName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -62,17 +61,10 @@ public class MDialogFragment extends DialogFragment {
             }
         });
         builder.setView(view)
-                .setPositiveButton("추가", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
-                        listener.onDialogPositiveClick(MDialogFragment.this, edtBookName.getText().toString());
-                    }
-                })
-                .setNegativeButton("취소", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dismiss();
-                    }
-                });
+            .setPositiveButton(R.string.add, (dialog, id) ->
+                listener.onDialogPositiveClick(MDialogFragment.this, edtBookName.getText().toString()))
+            .setNegativeButton(R.string.cancel, (dialog, id) ->
+                dismiss());
         dialog = builder.create();
         return dialog;
     }

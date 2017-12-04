@@ -1,5 +1,7 @@
 package com.dot2line.vocabar.presenter;
 
+import android.support.v4.util.Pair;
+
 import com.dot2line.vocabar.adapter.BookAdapter;
 import com.dot2line.vocabar.base.BaseMVPPresenter;
 import com.dot2line.vocabar.model.VocaBook;
@@ -8,7 +10,7 @@ import com.dot2line.vocabar.util.CSVReader;
 import com.dot2line.vocabar.util.DBUtil;
 import com.dot2line.vocabar.view.MainView;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import io.realm.Realm;
@@ -56,13 +58,13 @@ public class MainPresenter extends BaseMVPPresenter<MainView> {
   private RealmList<VocaPair> getPairListFromCSVFile(String path) {
     RealmList<VocaPair> vocaPairs = new RealmList<>();
 
-    ArrayList<String[]> lines = CSVReader.read(path);
+    List<Pair<String, String>> lines = CSVReader.read(path);
 
     for (int i = 0; i < lines.size(); i++) {
       VocaPair pair = realm.createObject(VocaPair.class);
       pair.setId(i);
-      pair.setOrigin(lines.get(i)[0]);
-      pair.setMeaning(lines.get(i)[1].trim());
+      pair.setOrigin(lines.get(i).first);
+      pair.setMeaning(lines.get(i).second.trim());
       vocaPairs.add(pair);
     }
     return vocaPairs;

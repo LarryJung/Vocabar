@@ -21,9 +21,9 @@ public class BookAdapter extends RecyclerView.Adapter {
   private ArrayList<VocaBook> bookList;
   private Context context;
 
-  OnClickEmptyViewListner listener;
+  OnClickItemViewListner listener;
 
-  public BookAdapter(Context context, OnClickEmptyViewListner listener) {
+  public BookAdapter(Context context, OnClickItemViewListner listener) {
     this.listener = listener;
     this.context = context;
     this.bookList = new ArrayList<>();
@@ -67,22 +67,14 @@ public class BookAdapter extends RecyclerView.Adapter {
       case EMPTY_VIEW:
       default:
         if (holder instanceof EmptyViewHolder) {
-          ((EmptyViewHolder) holder).root.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-              listener.onClickEmptyView(v);
-            }
-          });
+          ((EmptyViewHolder) holder).root.setOnClickListener(v -> listener.onClickEmptyView(v));
         }
         break;
       case NORMAL_VIEW:
         if (holder instanceof BookViewHolder) {
-          ((BookViewHolder) holder).root.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-              VocaBook book = bookList.get(position);
-              listener.onClickBookItemView(book);
-            }
+          ((BookViewHolder) holder).root.setOnClickListener(v -> {
+            VocaBook book = bookList.get(position);
+            listener.onClickBookItemView(book);
           });
           ((BookViewHolder) holder).bookName.setText(bookList.get(position).getBookName());
         }
@@ -113,8 +105,9 @@ public class BookAdapter extends RecyclerView.Adapter {
     }
   }
 
-  public interface OnClickEmptyViewListner {
+  public interface OnClickItemViewListner {
     void onClickEmptyView(View v);
     void onClickBookItemView(VocaBook book);
+    void onLongClickBookItemView(VocaBook book);
   }
 }

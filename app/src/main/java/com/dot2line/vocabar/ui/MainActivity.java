@@ -34,7 +34,7 @@ import droidninja.filepicker.FilePickerConst;
 import io.realm.Realm;
 
 public class MainActivity extends BaseMVPActivity<MainView, MainPresenter>
-    implements MainView, BookAdapter.OnClickEmptyViewListner, MDialogFragment.VCBDialogListener {
+    implements MainView, BookAdapter.OnClickItemViewListner, MDialogFragment.VCBDialogListener {
   private static final String TAG = MainActivity.class.getSimpleName();
   private static final String CSV_FILES = "CSV_FILES";
   private static final String[] CSV_FORMAT = {".csv"};
@@ -60,19 +60,13 @@ public class MainActivity extends BaseMVPActivity<MainView, MainPresenter>
 
     realm.init(this);
 
-
     ButterKnife.bind(this);
     setSupportActionBar(mToolbar);
 
     bookRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
     bookRecyclerView.setAdapter(adapter);
 
-    stopBtn.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        NaviUtil.INSTANCE.stopMainService(getApplicationContext());
-      }
-    });
+    stopBtn.setOnClickListener(v -> NaviUtil.INSTANCE.stopMainService(getApplicationContext()));
 
   }
 
@@ -130,6 +124,11 @@ public class MainActivity extends BaseMVPActivity<MainView, MainPresenter>
     Intent i = new Intent(this, DetailActivity.class) ;
     i.putExtra(DBUtil.BOOK_ID, book.getId());
     startActivity(i);
+  }
+
+  @Override
+  public void onLongClickBookItemView(VocaBook book) {
+
   }
 
   @Override
