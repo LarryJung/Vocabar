@@ -34,6 +34,11 @@ public class BookAdapter extends RecyclerView.Adapter {
     notifyDataSetChanged();
   }
 
+  public void removeBook(int index) {
+    this.bookList.remove(index);
+    notifyDataSetChanged();
+  }
+
   public void clear() {
     this.bookList.clear();
   }
@@ -76,6 +81,10 @@ public class BookAdapter extends RecyclerView.Adapter {
             VocaBook book = bookList.get(position);
             listener.onClickBookItemView(book);
           });
+          ((BookViewHolder) holder).root.setOnLongClickListener(view -> {
+            listener.onLongClickBookItemView(bookList.get(position).getId(), position);
+            return true;
+          });
           ((BookViewHolder) holder).bookName.setText(bookList.get(position).getBookName());
         }
         break;
@@ -108,6 +117,6 @@ public class BookAdapter extends RecyclerView.Adapter {
   public interface OnClickItemViewListner {
     void onClickEmptyView(View v);
     void onClickBookItemView(VocaBook book);
-    void onLongClickBookItemView(VocaBook book);
+    void onLongClickBookItemView(String bookId, int index);
   }
 }

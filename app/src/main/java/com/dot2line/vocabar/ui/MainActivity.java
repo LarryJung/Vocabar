@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -127,8 +128,19 @@ public class MainActivity extends BaseMVPActivity<MainView, MainPresenter>
   }
 
   @Override
-  public void onLongClickBookItemView(VocaBook book) {
-
+  public void onLongClickBookItemView(String bookId, int index) {
+    AlertDialog dialog = new AlertDialog.Builder(this)
+        .setTitle(R.string.title_delete)
+        .setPositiveButton(R.string.delete, (dialogInterface, i) -> {
+          basePresenter.removeBook(bookId);
+          adapter.removeBook(index);
+        })
+        .setNegativeButton(R.string.cancel, (dialogInterface, i) -> {
+          dialogInterface.dismiss();
+        })
+        .setCancelable(true)
+        .create();
+    dialog.show();
   }
 
   @Override

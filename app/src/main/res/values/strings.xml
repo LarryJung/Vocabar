@@ -7,4 +7,6 @@
     <string name="should_overlay_permission">Permission is required to use Vocabar.</string>
     <string name="book_name">Book Name</string>
     <string name="book_desc">Book Description</string>
+    <string name="title_delete">Do you want to delete?</string>
+    <string name="delete">delete</string>
 </resources>

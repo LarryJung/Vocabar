@@ -55,6 +55,12 @@ public class MainPresenter extends BaseMVPPresenter<MainView> {
     realm.commitTransaction();
   }
 
+  public void removeBook(String bookId) {
+    realm.beginTransaction();
+    DBUtil.removeVocaBook(realm, bookId);
+    realm.commitTransaction();
+  }
+
   private RealmList<VocaPair> getPairListFromCSVFile(String path) {
     RealmList<VocaPair> vocaPairs = new RealmList<>();
 
