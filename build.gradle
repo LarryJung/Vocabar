@@ -2,7 +2,7 @@
 
 buildscript {
     ext.build_gradle_version = '3.0.1'
-    ext.kotlin_version = '1.1.51'
+    ext.kotlin_version = '1.2.0'
     ext.realm_version = '4.1.1'
     ext.file_picker_version = '2.1.1'
     ext.rxjava_string_version = '1.1.1'
