@@ -54,7 +54,7 @@ public class MainService extends Service {
     finishInflate();
 
     if (intent != null) {
-      bookId = intent.getStringExtra(DBUtil.BOOK_ID);
+      bookId = intent.getStringExtra(DBUtil.INSTANCE.getBOOK_ID());
     }
     startInflate();
 

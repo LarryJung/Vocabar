@@ -55,14 +55,14 @@ public class DetailActivity extends BaseMVPActivity<DetailView, DetailPresenter>
 
     startBtn.setOnClickListener(view -> {
       Intent intent = new Intent(getApplicationContext(), MainService.class);
-      intent.putExtra(DBUtil.BOOK_ID, bookId);
+      intent.putExtra(DBUtil.INSTANCE.getBOOK_ID(), bookId);
       startService(intent);
     });
   }
 
   @Override
   protected DetailPresenter createPresenter() {
-    bookId = getIntent().getStringExtra(DBUtil.BOOK_ID);
+    bookId = getIntent().getStringExtra(DBUtil.INSTANCE.getBOOK_ID());
     if (bookId == null) {
       finish();
     }

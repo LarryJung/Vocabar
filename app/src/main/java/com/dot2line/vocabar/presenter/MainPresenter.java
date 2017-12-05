@@ -35,7 +35,7 @@ public class MainPresenter extends BaseMVPPresenter<MainView> {
   @Override
   protected void onViewTaken() {
     adapter.clear();
-    RealmResults<VocaBook> vocaBooks = DBUtil.getVocaBookList(realm);
+    RealmResults<VocaBook> vocaBooks = DBUtil.INSTANCE.getVocaBookList(realm);
     for (VocaBook book : vocaBooks) {
       adapter.addBook(book);
     }
@@ -57,7 +57,7 @@ public class MainPresenter extends BaseMVPPresenter<MainView> {
 
   public void removeBook(String bookId) {
     realm.beginTransaction();
-    DBUtil.removeVocaBook(realm, bookId);
+    DBUtil.INSTANCE.removeVocaBook(realm, bookId);
     realm.commitTransaction();
   }
 

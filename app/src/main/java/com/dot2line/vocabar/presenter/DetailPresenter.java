@@ -30,7 +30,7 @@ public class DetailPresenter extends BaseMVPPresenter<DetailView> {
 
   @Override
   protected void onViewTaken() {
-    vocaBook = DBUtil.getVocaBook(realm, bookId);
+    vocaBook = DBUtil.INSTANCE.getVocaBook(realm, bookId);
     getView().setBookTitle(vocaBook.getBookName());
     getView().setPairList((ArrayList<VocaPair>) realm.copyFromRealm(vocaBook.getVocaPairList()));
   }
@@ -39,6 +39,4 @@ public class DetailPresenter extends BaseMVPPresenter<DetailView> {
   protected void onViewDropped() {
 
   }
-
-
 }

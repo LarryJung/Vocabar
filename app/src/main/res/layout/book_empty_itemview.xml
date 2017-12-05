@@ -7,7 +7,7 @@
     android:layout_marginLeft="@dimen/margin_small"
     android:layout_marginRight="@dimen/margin_small"
     android:gravity="center"
-    android:background="@color/color_gray_1">
+    android:background="@color/color_gray_2">
 
     <ImageView
         android:layout_width="wrap_content"

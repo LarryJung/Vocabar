@@ -21,9 +21,9 @@ public class BookAdapter extends RecyclerView.Adapter {
   private ArrayList<VocaBook> bookList;
   private Context context;
 
-  OnClickItemViewListner listener;
+  OnClickItemViewListener listener;
 
-  public BookAdapter(Context context, OnClickItemViewListner listener) {
+  public BookAdapter(Context context, OnClickItemViewListener listener) {
     this.listener = listener;
     this.context = context;
     this.bookList = new ArrayList<>();
@@ -114,7 +114,7 @@ public class BookAdapter extends RecyclerView.Adapter {
     }
   }
 
-  public interface OnClickItemViewListner {
+  public interface OnClickItemViewListener {
     void onClickEmptyView(View v);
     void onClickBookItemView(VocaBook book);
     void onLongClickBookItemView(String bookId, int index);

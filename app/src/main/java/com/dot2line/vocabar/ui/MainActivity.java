@@ -35,7 +35,7 @@ import droidninja.filepicker.FilePickerConst;
 import io.realm.Realm;
 
 public class MainActivity extends BaseMVPActivity<MainView, MainPresenter>
-    implements MainView, BookAdapter.OnClickItemViewListner, MDialogFragment.VCBDialogListener {
+    implements MainView, BookAdapter.OnClickItemViewListener, MDialogFragment.VCBDialogListener {
   private static final String TAG = MainActivity.class.getSimpleName();
   private static final String CSV_FILES = "CSV_FILES";
   private static final String[] CSV_FORMAT = {".csv"};
@@ -123,7 +123,7 @@ public class MainActivity extends BaseMVPActivity<MainView, MainPresenter>
   @Override
   public void onClickBookItemView(VocaBook book) {
     Intent i = new Intent(this, DetailActivity.class) ;
-    i.putExtra(DBUtil.BOOK_ID, book.getId());
+    i.putExtra(DBUtil.INSTANCE.getBOOK_ID(), book.getId());
     startActivity(i);
   }
 
@@ -132,7 +132,7 @@ public class MainActivity extends BaseMVPActivity<MainView, MainPresenter>
     AlertDialog dialog = new AlertDialog.Builder(this)
         .setTitle(R.string.title_delete)
         .setPositiveButton(R.string.delete, (dialogInterface, i) -> {
-          basePresenter.removeBook(bookId);
+          getBasePresenter().removeBook(bookId);
           adapter.removeBook(index);
         })
         .setNegativeButton(R.string.cancel, (dialogInterface, i) -> {
@@ -157,12 +157,12 @@ public class MainActivity extends BaseMVPActivity<MainView, MainPresenter>
 
   @Override
   public void onDialogPositiveClick(DialogFragment fragment, String bookName) {
-    basePresenter.addVocaBook(bookName, tempFilesPath);
+    getBasePresenter().addVocaBook(bookName, tempFilesPath);
   }
 
   private void showMakeBookDialog() {
     MDialogFragment dialog = new MDialogFragment();
-    dialog.show(getSupportFragmentManager(), MDialogFragment.TAG);
+    dialog.show(getSupportFragmentManager(), MDialogFragment.Companion.getTAG());
   }
 
   private void moveToFilePicker() {
