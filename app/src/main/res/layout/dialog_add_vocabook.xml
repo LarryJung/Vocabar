@@ -1,23 +1,23 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content"
+  android:orientation="vertical">
 
-    <android.support.design.widget.TextInputLayout
-      android:id="@+id/input_layout_name"
+  <android.support.design.widget.TextInputLayout
+    android:id="@+id/input_layout_name"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/margin_small"
+    android:layout_marginLeft="@dimen/margin_small"
+    android:layout_marginRight="@dimen/margin_small"
+    android:layout_marginTop="@dimen/margin_normal">
+
+    <EditText
+      android:id="@+id/edt_book_name"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_marginTop="@dimen/margin_normal"
-      android:layout_marginLeft="@dimen/margin_small"
-      android:layout_marginRight="@dimen/margin_small"
-      android:layout_marginBottom="@dimen/margin_small">
+      android:hint="@string/book_name"
+      android:singleLine="true" />
 
-      <EditText
-        android:id="@+id/edt_book_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:singleLine="true"
-        android:hint="@string/book_name" />
-
-    </android.support.design.widget.TextInputLayout>
+  </android.support.design.widget.TextInputLayout>
 </LinearLayout>

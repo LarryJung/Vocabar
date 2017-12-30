@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
-  android:orientation="vertical"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
-  android:padding="@dimen/margin_small"
+  android:background="@color/color_white_FFFFFF"
   android:gravity="center"
-  android:background="@color/color_white_FFFFFF">
+  android:orientation="vertical"
+  android:padding="@dimen/margin_small">
 
   <TextView
     android:id="@+id/origin_txt"
@@ -15,7 +15,7 @@
     android:gravity="start"
     android:textColor="@color/colorPrimary"
     android:textSize="@dimen/text_large"
-    tools:text="Origin"/>
+    tools:text="Origin" />
 
   <TextView
     android:id="@+id/meaning_txt"
@@ -24,5 +24,5 @@
     android:gravity="start"
     android:textColor="@color/text_black_3"
     android:textSize="@dimen/text_normal"
-    tools:text="Meaning"/>
+    tools:text="Meaning" />
 </LinearLayout>

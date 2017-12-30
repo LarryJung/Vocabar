@@ -64,7 +64,7 @@ public class MainActivity extends BaseMVPActivity<MainView, MainPresenter>
     ButterKnife.bind(this);
     setSupportActionBar(mToolbar);
 
-    bookRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+    bookRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
     bookRecyclerView.setAdapter(adapter);
 
     stopBtn.setOnClickListener(v -> NaviUtil.INSTANCE.stopMainService(getApplicationContext()));
