@@ -9,4 +9,6 @@
     <string name="book_desc">Book Description</string>
     <string name="title_delete">Do you want to delete?</string>
     <string name="delete">delete</string>
+    <string name="stop_vocabar">Stop Vocabar</string>
+    <string name="start_vocabar">Start Vocabar</string>
 </resources>
